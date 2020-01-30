@@ -2,6 +2,9 @@ package no.simenbai.idatg2001.obligs.two;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.TemporalUnit;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class BonusMember {
@@ -18,6 +21,7 @@ public class BonusMember {
     }
 
     public int findQualificationPoints(LocalDate time) {
+        // LocalDate.until(LocalDate, DAYS) should be used here
         if(getDays(Period.between(enrolledDate, time)) < 365){
             return getPoints();
         }
