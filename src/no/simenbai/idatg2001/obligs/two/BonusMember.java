@@ -3,6 +3,7 @@ package no.simenbai.idatg2001.obligs.two;
 import java.time.LocalDate;
 import java.time.Period;
 
+
 public class BonusMember {
     private final int memberNo;
     private final Personals personals;
@@ -17,10 +18,14 @@ public class BonusMember {
     }
 
     public int findQualificationPoints(LocalDate time) {
-        if(Period.between(enrolledDate, time).getDays() < 365){
+        if(getDays(Period.between(enrolledDate, time)) < 365){
             return getPoints();
         }
         return 0;
+    }
+
+    private int getDays(Period period){
+        return Math.abs(period.getMonths()*30 + period.getYears() * 365 + period.getDays());
     }
 
     public boolean okPassword(String password) {
