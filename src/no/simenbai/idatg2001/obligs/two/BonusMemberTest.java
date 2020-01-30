@@ -26,6 +26,7 @@ class BonusMemberTest {
         BasicMember b1 = new BasicMember(100, ole, LocalDate.of(2006, 2, 15));
         b1.registerPoints(30000);
         System.out.println("Test nr 1: No qualification points");
+        b1.findQualificationPoints(testDate);
         assertEquals(0, b1.findQualificationPoints(testDate));
         assertEquals(30000, b1.getPoints());
         System.out.println("Test nr 2: Adding 15 000 points, still no qualification points");
@@ -47,8 +48,8 @@ class BonusMemberTest {
         b3.registerPoints(50000);
         assertEquals(90000, b3.findQualificationPoints(testDate));
         assertEquals(90000, b3.getPoints());
-        AVDELING FOR INGENIØR - OG REALFAG IDATA2001PROGRAMMERING2OBLIG2:Arv og polymorfiOblig 2 - Arv og polymorfi.
-        docx / Revidert:28.01 .2020 Side 8 av 8 System.out.println("Test nr 5: Tove as gold member");
+
+        System.out.println("Test nr 5: Tove as gold member");
         GoldMember b4 = new GoldMember(b3.getMemberNo(), b3.getPersonals(), b3.getEnrolledDate(), b3.getPoints());
         b4.registerPoints(30000);
         assertEquals(135000, b4.findQualificationPoints(testDate));
