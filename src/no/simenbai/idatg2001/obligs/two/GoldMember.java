@@ -9,7 +9,7 @@ public class GoldMember extends BonusMember {
 
     @Override
     public void registerPoints(int points) {
-        super.registerPoints((int) (points * 1.5));
+        super.registerPoints((int) (points * FACTOR_GOLD));
     }
 }
 

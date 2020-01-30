@@ -2,26 +2,32 @@ package no.simenbai.idatg2001.obligs.two;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.temporal.TemporalUnit;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class BonusMember {
+    final double FACTOR_SILVER = 1.2;
+    final double FACTOR_GOLD = 1.5;
     private final int memberNo;
     private final Personals personals;
     private final LocalDate enrolledDate;
     private int point = 0;
 
-    public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate, int point) {
+    BonusMember(int memberNo, Personals personals, LocalDate enrolledDate, int point) {
         this.memberNo = memberNo;
         this.personals = personals;
         this.enrolledDate = enrolledDate;
         this.point = point;
     }
 
+    BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
+        this.memberNo = memberNo;
+        this.personals = personals;
+        this.enrolledDate = enrolledDate;
+        this.point = 0;
+    }
+
     public int findQualificationPoints(LocalDate time) {
-        // LocalDate.until(LocalDate, DAYS) should be used here
+        // Math.abs(LocalDate.until(LocalDate, DAYS)) should be used here
         if(getDays(Period.between(enrolledDate, time)) < 365){
             return getPoints();
         }
