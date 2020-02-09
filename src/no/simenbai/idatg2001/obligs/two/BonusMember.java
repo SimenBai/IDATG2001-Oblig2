@@ -2,40 +2,37 @@ package no.simenbai.idatg2001.obligs.two;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 
 public class BonusMember {
-    final double FACTOR_SILVER = 1.2;
-    final double FACTOR_GOLD = 1.5;
+    final float FACTOR_SILVER = 1.2F;
+    final float FACTOR_GOLD = 1.5F;
+
     private final int memberNo;
     private final Personals personals;
     private final LocalDate enrolledDate;
-    private int point = 0;
+    private int bonusPoints = 0;
 
-    BonusMember(int memberNo, Personals personals, LocalDate enrolledDate, int point) {
+    BonusMember(int memberNo, Personals personals, LocalDate enrolledDate, int points) {
         this.memberNo = memberNo;
         this.personals = personals;
         this.enrolledDate = enrolledDate;
-        this.point = point;
+        this.bonusPoints = points;
     }
 
     BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
         this.memberNo = memberNo;
         this.personals = personals;
         this.enrolledDate = enrolledDate;
-        this.point = 0;
+        this.bonusPoints = 0;
     }
 
-    public int findQualificationPoints(LocalDate time) {
-        // Math.abs(LocalDate.until(LocalDate, DAYS)) should be used here
-        if(getDays(Period.between(enrolledDate, time)) < 365){
+    public int findQualificationPoints(LocalDate date) {
+        if(ChronoUnit.DAYS.between(this.enrolledDate, date) < 365){
             return getPoints();
         }
         return 0;
-    }
-
-    private int getDays(Period period){
-        return Math.abs(period.getMonths()*30 + period.getYears() * 365 + period.getDays());
     }
 
     public boolean okPassword(String password) {
@@ -43,7 +40,7 @@ public class BonusMember {
     }
 
     public void registerPoints(int points){
-        this.point += points;
+        this.bonusPoints += points;
     }
 
     public int getMemberNo() {
@@ -59,6 +56,6 @@ public class BonusMember {
     }
 
     public int getPoints() {
-        return point;
+        return bonusPoints;
     }
 }
