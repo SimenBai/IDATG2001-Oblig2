@@ -13,10 +13,13 @@ public class MemberArchive {
     public MemberArchive(ArrayList<BonusMember> members) {
         this.members = members;
     }
+    public MemberArchive(){
+        this.members = new ArrayList<>();
+    }
 
     public int addMember(Personals personals, LocalDate date) {
         int memberNo = findAvailableNumber();
-        members.add(new BonusMember(memberNo, personals, date));
+        members.add(new BasicMember(memberNo, personals, date));
         return memberNo;
     }
 
