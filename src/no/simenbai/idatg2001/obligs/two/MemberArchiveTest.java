@@ -9,12 +9,18 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The Member archive test.
+ */
 class MemberArchiveTest {
     private LocalDate testDate;
     private Personals ole;
     private MemberArchive memberArchive;
     private int oleMemberNo;
 
+    /**
+     * Sets up the tests.
+     */
     @BeforeEach
     void setUp() {
         this.memberArchive = new MemberArchive();
@@ -25,10 +31,16 @@ class MemberArchiveTest {
         this.oleMemberNo = this.memberArchive.addMember(this.ole, testDate);
     }
 
+    /**
+     * Tear down.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * Test if the addMember function works as intended.
+     */
     @Test
     void addMember() {
         this.memberArchive.addMember(this.ole, testDate);
@@ -43,6 +55,9 @@ class MemberArchiveTest {
         assertEquals(member.getClass(), BasicMember.class);
     }
 
+    /**
+     * Test if the findPoints() function works as intended
+     */
     @Test
     void findPoints() {
         System.out.println("findPoints() - Testing correct member no, and password, no points");
@@ -63,6 +78,9 @@ class MemberArchiveTest {
         assertEquals(1000, points);
     }
 
+    /**
+     * Test if the registerPoints() function works as intended.
+     */
     @Test
     void registerPoints() {
         System.out.println("registerPoints() - Adding 1000 points, with correct member");
@@ -76,6 +94,9 @@ class MemberArchiveTest {
         assertFalse(response);
     }
 
+    /**
+     * Check if the checkMembers() function works as intended.
+     */
     @Test
     void checkMembers() {
         BonusMember member = this.memberArchive.members.get(0);
