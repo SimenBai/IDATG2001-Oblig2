@@ -7,7 +7,6 @@ import java.util.Random;
 public class MemberArchive {
     static final int SILVER_LIMIT = 25000;
     static final int GOLD_LIMIT = 75000;
-    static final int MAKS_TRY = 10;
     static final Random RANDOM_NUMBER = new Random();
     ArrayList<BonusMember> members;
 
@@ -23,7 +22,7 @@ public class MemberArchive {
 
     public int findPoints(int memberNo, String password) {
         BonusMember member = findMember(memberNo);
-        if (member.okPassword(password)) {
+        if (member != null && member.okPassword(password)) {
             return member.getPoints();
         }
         return -1;
@@ -39,15 +38,29 @@ public class MemberArchive {
     }
 
     public void checkMembers(LocalDate date) {
-
-    }
-
-    private BonusMember checkSilverLimit(int memberNo, LocalDate date) {
-        return null;
-    }
-
-    private BonusMember checkGoldLimit(int memberNo, LocalDate date) {
-        return null;
+        for (int i = 0; i < members.size(); i++) {
+            BonusMember member = members.get(i);
+            int qualifyingPoints = member.findQualificationPoints(date);
+            if (qualifyingPoints >= GOLD_LIMIT && !(member instanceof GoldMember)) {
+                members.set(i,
+                        new GoldMember(
+                                member.getMemberNo(),
+                                member.getPersonals(),
+                                member.getEnrolledDate(),
+                                member.getPoints()
+                        )
+                );
+            } else if (qualifyingPoints >= SILVER_LIMIT && !(member instanceof SilverMember)) {
+                members.set(i,
+                        new SilverMember(
+                                member.getMemberNo(),
+                                member.getPersonals(),
+                                member.getEnrolledDate(),
+                                member.getPoints()
+                        )
+                );
+            }
+        }
     }
 
     private BonusMember findMember(int memberNo) {
@@ -66,11 +79,6 @@ public class MemberArchive {
                 return memberNo;
             }
         }
-    }
-
-    public String createOutput(LocalDate date) {
-        // Apparently a class I need
-        return null;
     }
 
     public static void main(String[] args) {
